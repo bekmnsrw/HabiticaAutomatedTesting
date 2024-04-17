@@ -1,20 +1,14 @@
 package com.habitica.base;
 
 import com.habitica.ApplicationManager;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
 
     protected ApplicationManager applicationManager;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        applicationManager = new ApplicationManager();
-    }
-
-    @After
-    public void tearDown() {
-        applicationManager.stop();
+        applicationManager = ApplicationManager.getInstance();
     }
 }

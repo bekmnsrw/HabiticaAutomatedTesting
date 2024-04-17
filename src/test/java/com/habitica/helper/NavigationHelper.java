@@ -19,7 +19,7 @@ public class NavigationHelper extends HelperBase {
 
     public void openHomePage() throws InterruptedException {
         webDriver.get(baseUrl);
-        sleep(3);
+        sleep(SLEEP_DURATION);
     }
 
     public void openLoginPage() {

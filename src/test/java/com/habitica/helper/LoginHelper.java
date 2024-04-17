@@ -19,6 +19,6 @@ public class LoginHelper extends HelperBase {
         webDriver.findElement(By.id("passwordInput")).clear();
         webDriver.findElement(By.id("passwordInput")).sendKeys(userData.password());
         webDriver.findElement(By.xpath("//button[@type='submit']")).click();
-        sleep(3);
+        sleep(SLEEP_DURATION);
     }
 }

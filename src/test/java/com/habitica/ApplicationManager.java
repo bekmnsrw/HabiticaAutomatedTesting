@@ -5,7 +5,7 @@ import com.habitica.helper.LoginHelper;
 import com.habitica.helper.LogoutHelper;
 import com.habitica.helper.NavigationHelper;
 import com.habitica.helper.TaskHelper;
-import org.junit.Assert;
+import com.habitica.utils.DestructorUtil;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -31,13 +31,24 @@ public class ApplicationManager {
     private TaskHelper taskHelper;
     private LogoutHelper logoutHelper;
 
-    public ApplicationManager() {
+    private static final ThreadLocal<ApplicationManager> applicationManagerThreadLocal = new ThreadLocal<>();
+
+    private ApplicationManager() {
         System.setProperty(DRIVER_PROPERTY, DRIVER_PATH);
         webDriver = new FirefoxDriver(setUpFirefoxOptions());
         webDriver.manage().window().maximize();
         verificationErrors = new StringBuffer();
         setUpTimeout();
         initHelpers();
+        DestructorUtil.addManagerDestructor(this);
+    }
+
+    public static ApplicationManager getInstance() {
+        if (applicationManagerThreadLocal.get() == null) {
+            ApplicationManager newInstance = new ApplicationManager();
+            applicationManagerThreadLocal.set(newInstance);
+        }
+        return applicationManagerThreadLocal.get();
     }
 
     private FirefoxOptions setUpFirefoxOptions() {
@@ -57,14 +68,6 @@ public class ApplicationManager {
         loginHelper = new LoginHelper(this);
         taskHelper = new TaskHelper(this);
         logoutHelper = new LogoutHelper(this);
-    }
-
-    public void stop() {
-        webDriver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!verificationErrorString.equals("")) {
-            Assert.fail(verificationErrorString);
-        }
     }
 
     public WebDriver getWebDriver() {
@@ -89,5 +92,9 @@ public class ApplicationManager {
 
     public TaskHelper getTaskHelper() {
         return taskHelper;
+    }
+
+    public StringBuffer getVerificationErrors() {
+        return verificationErrors;
     }
 }

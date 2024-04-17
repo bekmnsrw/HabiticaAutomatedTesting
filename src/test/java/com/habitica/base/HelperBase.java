@@ -11,7 +11,9 @@ public class HelperBase {
 
     protected WebDriver webDriver;
     protected ApplicationManager applicationManager;
+
     protected boolean acceptNextAlert = true;
+    protected static final int SLEEP_DURATION = 3;
 
     public HelperBase(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;

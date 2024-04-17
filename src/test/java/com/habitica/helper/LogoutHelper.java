@@ -13,6 +13,6 @@ public class LogoutHelper extends HelperBase {
     public void logout() throws InterruptedException {
         webDriver.findElement(By.cssSelector("div.form-inline.desktop-only > div.habitica-menu-dropdown.dropdown.item-user.item-with-icon > div.habitica-menu-dropdown-toggle > div > div > div.top-menu-icon.svg-icon.user > svg")).click();
         webDriver.findElement(By.xpath("//div[@id='menu_collapse']/div[2]/div[2]/div[2]/div/a[9]")).click();
-        sleep(5);
+        sleep(SLEEP_DURATION);
     }
 }
