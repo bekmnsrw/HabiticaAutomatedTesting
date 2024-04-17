@@ -1,23 +1,21 @@
 package com.habitica.test;
 
 import com.habitica.base.TestBase;
-import com.habitica.data.TaskData;
 import com.habitica.data.UserData;
 import org.junit.Test;
 
-public class HabiticaTaskCreationTest extends TestBase {
+public class HabiticaTaskDeletionTest extends TestBase {
 
     private static final UserData userData = new UserData("bekmnsrw", "HmRdx6v2CZCZ*");
-    private static final TaskData taskData = new TaskData("Do some gymnastics");
 
     @Test
-    public void taskCreationTestCase() throws InterruptedException {
+    public void taskDeletionTestCase() throws InterruptedException {
         applicationManager.getNavigationHelper().openHomePage();
         applicationManager.getNavigationHelper().openLoginPage();
         applicationManager.getLoginHelper().login(userData);
         applicationManager.getHelperBase().sleep(5);
 
-        applicationManager.getTaskHelper().createTask(taskData);
+        applicationManager.getTaskHelper().deleteTask();
         applicationManager.getHelperBase().sleep(5);
     }
 }
