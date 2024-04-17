@@ -44,4 +44,10 @@ public class HelperBase {
     public void sendKey(Keys key) {
         new Actions(webDriver).sendKeys(key).perform();
     }
+
+    public String getCurrentUrl() {
+        String currentUrl = webDriver.getCurrentUrl();
+        System.out.println(currentUrl);
+        return currentUrl;
+    }
 }

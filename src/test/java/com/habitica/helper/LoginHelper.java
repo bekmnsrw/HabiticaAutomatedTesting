@@ -21,4 +21,11 @@ public class LoginHelper extends HelperBase {
         webDriver.findElement(By.xpath("//button[@type='submit']")).click();
         sleep(SLEEP_DURATION);
     }
+
+    public String getProfileUsername() {
+        webDriver.findElement(By.xpath("//div[@id='app-header']/div[2]/div[2]/div/div[2]/h3/div/span")).click();
+        String profileUsername = webDriver.findElement(By.xpath("//div[@id='profile___BV_modal_body_']/div/div/div/div/div/div[2]/div/div/h3/div")).getText();
+        System.out.println(profileUsername);
+        return profileUsername;
+    }
 }
