@@ -2,6 +2,7 @@ package com.habitica;
 
 import com.habitica.base.HelperBase;
 import com.habitica.helper.LoginHelper;
+import com.habitica.helper.LogoutHelper;
 import com.habitica.helper.NavigationHelper;
 import com.habitica.helper.TaskHelper;
 import org.junit.Assert;
@@ -28,11 +29,12 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private LoginHelper loginHelper;
     private TaskHelper taskHelper;
+    private LogoutHelper logoutHelper;
 
     public ApplicationManager() {
         System.setProperty(DRIVER_PROPERTY, DRIVER_PATH);
         webDriver = new FirefoxDriver(setUpFirefoxOptions());
-        webDriver.manage().window().fullscreen();
+        webDriver.manage().window().maximize();
         verificationErrors = new StringBuffer();
         setUpTimeout();
         initHelpers();
@@ -54,6 +56,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(this, BASE_URL);
         loginHelper = new LoginHelper(this);
         taskHelper = new TaskHelper(this);
+        logoutHelper = new LogoutHelper(this);
     }
 
     public void stop() {
@@ -78,6 +81,10 @@ public class ApplicationManager {
 
     public LoginHelper getLoginHelper() {
         return loginHelper;
+    }
+
+    public LogoutHelper getLogoutHelper() {
+        return logoutHelper;
     }
 
     public TaskHelper getTaskHelper() {
