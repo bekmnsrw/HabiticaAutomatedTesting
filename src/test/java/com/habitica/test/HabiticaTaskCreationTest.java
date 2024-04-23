@@ -12,22 +12,21 @@ public class HabiticaTaskCreationTest extends TestBase {
     private static final TaskData taskData = new TaskData("Do some gymnastics");
 
     @Test
-    public void taskCreationTestCase() throws InterruptedException {
+    public void taskCreationTestCase() throws Exception {
         // Login
         applicationManager.getNavigationHelper().openHomePage();
         applicationManager.getNavigationHelper().openLoginPage();
         applicationManager.getLoginHelper().login(userData);
-        applicationManager.getHelperBase().sleep(5);
 
         // Create new task
         applicationManager.getTaskHelper().createTask(taskData);
-        applicationManager.getHelperBase().sleep(5);
 
         // Assert title of last (created) task equals 'Do some gymnastics'
-        Assertions.assertEquals(taskData.title(), applicationManager.getTaskHelper().getLastTask().title());
+        String expectedTitle = taskData.title();
+        String actualTitle = applicationManager.getTaskHelper().getLastTask().title();
+        Assertions.assertEquals(expectedTitle, actualTitle);
 
         // Logout
         applicationManager.getLogoutHelper().logout();
-        applicationManager.getHelperBase().sleep(5);
     }
 }

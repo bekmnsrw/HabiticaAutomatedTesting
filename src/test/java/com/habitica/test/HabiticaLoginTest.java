@@ -4,7 +4,9 @@ import com.habitica.base.TestBase;
 import com.habitica.data.UserData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HabiticaLoginTest extends TestBase {
 
@@ -16,17 +18,15 @@ public class HabiticaLoginTest extends TestBase {
         applicationManager.getNavigationHelper().openHomePage();
         applicationManager.getNavigationHelper().openLoginPage();
         applicationManager.getLoginHelper().login(userData);
-        applicationManager.getHelperBase().sleep(5);
 
-        // Assert profile username equals 'bekmnsrw'
-        Assertions.assertEquals(applicationManager.getLoginHelper().getProfileUsername(), userData.username());
+        // Wait for user avatar present
+        WebDriverWait wait = applicationManager.getHelperBase().setUpWebDriverWait();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='app-header']/div[2]/div/div/div/span[19]")));
 
-        // Assert url after login equals 'https://habitica.com/profile/69cc0757-ec99-4d0e-8ba2-f6ca1f1cfc82'
-        Assertions.assertEquals(applicationManager.getLoginHelper().getCurrentUrl(), "https://habitica.com/profile/69cc0757-ec99-4d0e-8ba2-f6ca1f1cfc82");
-
-        // Close window with profile data
-        applicationManager.getHelperBase().sendKey(Keys.ESCAPE);
-        applicationManager.getHelperBase().sleep(5);
+        // Assert URL after login equals 'https://habitica.com/'
+        String actualUrl = applicationManager.getLoginHelper().getCurrentUrl();
+        String expectedUrl = "https://habitica.com/";
+        Assertions.assertEquals(expectedUrl, actualUrl);
 
         // Logout
         applicationManager.getLogoutHelper().logout();

@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class NavigationHelper extends HelperBase {
 
     private final String baseUrl;
@@ -17,14 +15,17 @@ public class NavigationHelper extends HelperBase {
         this.baseUrl = baseUrl;
     }
 
-    public void openHomePage() throws InterruptedException {
+    public void openHomePage() {
         webDriver.get(baseUrl);
-        sleep(SLEEP_DURATION);
     }
 
     public void openLoginPage() {
+        waitForPageFullLoaded();
+        // Wait for login button presence
+        WebDriverWait wait = applicationManager.getHelperBase().setUpWebDriverWait();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[href*='/login']")));
+
+        // Click login button
         webDriver.findElement(By.cssSelector("a[href*='/login']")).click();
-        WebDriverWait wait = applicationManager.getHelperBase().setUpWebDriverWait(Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.urlContains("/login"));
     }
 }

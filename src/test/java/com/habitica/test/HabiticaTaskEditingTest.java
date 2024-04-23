@@ -12,24 +12,22 @@ public class HabiticaTaskEditingTest extends TestBase {
     private static final TaskData taskData = new TaskData(" This is edited task test");
 
     @Test
-    public void taskEditingTestCase() throws InterruptedException {
+    public void taskEditingTestCase() throws Exception {
         // Login
         applicationManager.getNavigationHelper().openHomePage();
         applicationManager.getNavigationHelper().openLoginPage();
         applicationManager.getLoginHelper().login(userData);
-        applicationManager.getHelperBase().sleep(5);
 
         // Edit last task
         String lastTitleTask = applicationManager.getTaskHelper().getLastTask().title();
         applicationManager.getTaskHelper().editTask(taskData);
-        applicationManager.getHelperBase().sleep(5);
 
         // Assert title of last task equals updated title
-        String updatedTaskTitle = applicationManager.getTaskHelper().getLastTask().title();
-        Assertions.assertEquals(lastTitleTask + taskData.title(), updatedTaskTitle);
+        String actualTaskTitle = applicationManager.getTaskHelper().getLastTask().title();
+        String expectedTaskTitle = lastTitleTask + taskData.title();
+        Assertions.assertEquals(expectedTaskTitle, actualTaskTitle);
 
         // Logout
         applicationManager.getLogoutHelper().logout();
-        applicationManager.getHelperBase().sleep(5);
     }
 }
