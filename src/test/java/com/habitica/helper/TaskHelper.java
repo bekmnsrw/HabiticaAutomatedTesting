@@ -5,7 +5,6 @@ import com.habitica.base.HelperBase;
 import com.habitica.data.TaskData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 
 public class TaskHelper extends HelperBase {
 
@@ -42,7 +41,7 @@ public class TaskHelper extends HelperBase {
 
     public TaskData getLastTask() {
         String taskTitle = webDriver.findElement(By.xpath("//div[@id='app']/div[4]/div[3]/div/div/div[2]/div/div[2]/div[3]/div/div/div/div[2]/div/div/h3/p")).getText();
-        System.out.println(taskTitle);
+        System.out.println("Last task title: " + taskTitle);
         return new TaskData(taskTitle);
     }
 }

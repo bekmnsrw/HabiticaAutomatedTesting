@@ -47,7 +47,7 @@ public class HelperBase {
 
     public String getCurrentUrl() {
         String currentUrl = webDriver.getCurrentUrl();
-        System.out.println(currentUrl);
+        System.out.println("Current URL: " + currentUrl);
         return currentUrl;
     }
 }

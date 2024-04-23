@@ -15,4 +15,8 @@ public class LogoutHelper extends HelperBase {
         webDriver.findElement(By.xpath("//div[@id='menu_collapse']/div[2]/div[2]/div[2]/div/a[9]")).click();
         sleep(SLEEP_DURATION);
     }
+
+    public Boolean isLoginButtonExists() {
+        return webDriver.findElement(By.linkText("Login")).getText().equals("Login");
+    }
 }

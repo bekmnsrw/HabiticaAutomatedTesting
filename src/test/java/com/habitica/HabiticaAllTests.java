@@ -1,4 +1,4 @@
-package com.habitica.test;
+package com.habitica;
 
 import com.habitica.base.TestBase;
 import com.habitica.data.TaskData;
@@ -62,5 +62,6 @@ public class HabiticaAllTests extends TestBase {
         applicationManager.getHelperBase().sleep(5);
 
         Assertions.assertEquals(applicationManager.getHelperBase().getCurrentUrl(), "https://habitica.com/static/home");
+        Assertions.assertTrue(applicationManager.getLogoutHelper().isLoginButtonExists());
     }
 }
