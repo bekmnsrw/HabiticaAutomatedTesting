@@ -21,7 +21,7 @@ public class HelperBase {
     }
 
     public WebDriverWait setUpWebDriverWait() {
-        return new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        return new WebDriverWait(webDriver, Duration.ofSeconds(30));
     }
 
     public void waitForPageFullLoaded() {

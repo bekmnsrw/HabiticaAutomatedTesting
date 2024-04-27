@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
 
     testImplementation("org.seleniumhq.selenium:selenium-firefox-driver:4.18.1")
     testImplementation("org.seleniumhq.selenium:selenium-java:4.18.1")

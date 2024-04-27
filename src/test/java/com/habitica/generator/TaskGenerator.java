@@ -1,42 +1,46 @@
 package com.habitica.generator;
 
+import com.habitica.data.TaskData;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Objects;
+
+import static com.habitica.utils.StringUtil.getRandomString;
+
 public class TaskGenerator {
+
     public static final String SOURCE = "C:/Users/ilyab/Desktop";
 
     public static void main(String[] args) {
-        System.out.println(SOURCE);
         String type = args[0];
-        int count = Integer.parseInt(args[1]);
-        String filename = args[2];
-        String format = args[3];
-        if (java.util.Objects.equals(type, "task")) GenerateForGroups(count, filename, format);
+        String filename = args[1];
+        String format = args[2];
+        if (Objects.equals(type, "task")) GenerateForGroups(filename, format);
         else throw new IllegalArgumentException("Unrecognized type: " + type);
     }
 
-    private static void GenerateForGroups(int count, String filename, String format) {
-        java.util.List<com.habitica.data.TaskData> tasks = new java.util.LinkedList<>();
+    private static void GenerateForGroups(String filename, String format) {
+        TaskData task = new TaskData(getRandomString(5, 18));
 
-        for (int i = 0; i < count; i++) {
-            tasks.add(new com.habitica.data.TaskData(com.habitica.utils.StringUtil.getRandomString(5, 18)));
-        }
-
-        if (java.util.Objects.equals(format, "xml")) {
-            try (java.io.FileWriter fileWriter = new java.io.FileWriter(SOURCE + "/" + filename + "." + format)) { writePostsToXmlFile(tasks, fileWriter); }
-            catch (java.io.IOException exception) { throw new RuntimeException(exception); }
+        if (Objects.equals(format, "xml")) {
+            try (FileWriter fileWriter = new FileWriter(SOURCE + "/" + filename + "." + format)) { writeToXmlFile(task, fileWriter); }
+            catch (IOException exception) { throw new RuntimeException(exception); }
         } else {
             throw new IllegalArgumentException("Unrecognized format: " + format);
         }
     }
 
-    static void writePostsToXmlFile(java.util.List<com.habitica.data.TaskData> taskDataList, java.io.FileWriter fileWriter) {
+    static void writeToXmlFile(TaskData taskData, FileWriter fileWriter) {
         try {
-            com.habitica.data.jaxb.Tasks tasks = new com.habitica.data.jaxb.Tasks();
-            tasks.setTasks(taskDataList);
-            javax.xml.bind.JAXBContext jaxbContext = javax.xml.bind.JAXBContext.newInstance(com.habitica.data.jaxb.Tasks.class);
-            javax.xml.bind.Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(tasks, fileWriter);
-        } catch (javax.xml.bind.JAXBException e) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(TaskData.class);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(taskData, fileWriter);
+        } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
     }
