@@ -1,9 +1,8 @@
 package com.habitica.test;
 
-import com.habitica.base.TestBase;
+import com.habitica.base.AuthBase;
 import com.habitica.data.TaskData;
 import com.habitica.generator.TaskGenerator;
-import com.habitica.data.UserData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,9 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HabiticaTaskCreationTest extends TestBase {
-
-    private static final UserData userData = new UserData("bekmnsrw", "HmRdx6v2CZCZ*");
+public class HabiticaTaskCreationTest extends AuthBase {
 
     public static List<TaskData> taskCreationTestCaseData() {
         try {
@@ -35,11 +32,6 @@ public class HabiticaTaskCreationTest extends TestBase {
     @ParameterizedTest
     @MethodSource("com.habitica.test.HabiticaTaskCreationTest#taskCreationTestCaseData")
     public void taskCreationTestCase(TaskData taskData) throws Exception {
-        // Login
-        applicationManager.getNavigationHelper().openHomePage();
-        applicationManager.getNavigationHelper().openLoginPage();
-        applicationManager.getLoginHelper().login(userData);
-
         // Create new task
         applicationManager.getTaskHelper().createTask(taskData);
 
@@ -47,8 +39,5 @@ public class HabiticaTaskCreationTest extends TestBase {
         String expectedTitle = taskData.title();
         String actualTitle = applicationManager.getTaskHelper().getLastTask().title();
         Assertions.assertEquals(expectedTitle, actualTitle);
-
-        // Logout
-        applicationManager.getLogoutHelper().logout();
     }
 }

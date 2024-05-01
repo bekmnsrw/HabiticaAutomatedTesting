@@ -1,6 +1,7 @@
 package com.habitica;
 
 import com.habitica.base.HelperBase;
+import com.habitica.config.Settings;
 import com.habitica.helper.LoginHelper;
 import com.habitica.helper.LogoutHelper;
 import com.habitica.helper.NavigationHelper;
@@ -18,8 +19,6 @@ public class ApplicationManager {
     private static final String DRIVER_PROPERTY = "webdriver.gecko.driver";
     private static final String DRIVER_PATH = "C:\\Users\\ilyab\\TestingCourse\\geckodriver.exe";
     private static final String FIREFOX_PATH = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
-
-    public static final String BASE_URL = "https://habitica.com/static/home";
     public static final Duration TIMEOUT = Duration.ofSeconds(30);
 
     private final WebDriver webDriver;
@@ -64,7 +63,7 @@ public class ApplicationManager {
 
     private void initHelpers() {
         helperBase = new HelperBase(this);
-        navigationHelper = new NavigationHelper(this, BASE_URL);
+        navigationHelper = new NavigationHelper(this, Settings.getBaseUrl());
         loginHelper = new LoginHelper(this);
         taskHelper = new TaskHelper(this);
         logoutHelper = new LogoutHelper(this);

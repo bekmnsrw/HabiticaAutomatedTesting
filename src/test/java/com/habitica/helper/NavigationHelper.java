@@ -2,6 +2,7 @@ package com.habitica.helper;
 
 import com.habitica.ApplicationManager;
 import com.habitica.base.HelperBase;
+import com.habitica.config.Settings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,5 +28,9 @@ public class NavigationHelper extends HelperBase {
 
         // Click login button
         webDriver.findElement(By.cssSelector("a[href*='/login']")).click();
+    }
+
+    public void openProfilePage() {
+        webDriver.get(Settings.getPath());
     }
 }

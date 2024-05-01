@@ -1,24 +1,16 @@
 package com.habitica.test;
 
-import com.habitica.base.TestBase;
-import com.habitica.data.UserData;
+import com.habitica.base.AuthBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HabiticaLogoutTest extends TestBase {
-
-    private static final UserData userData = new UserData("bekmnsrw", "HmRdx6v2CZCZ*");
+public class HabiticaLogoutTest extends AuthBase {
 
     @Test
     public void logoutTestCase() throws Exception {
-        // Login
-        applicationManager.getNavigationHelper().openHomePage();
-        applicationManager.getNavigationHelper().openLoginPage();
-        applicationManager.getLoginHelper().login(userData);
-
         // Logout
         applicationManager.getLogoutHelper().logout();
 
