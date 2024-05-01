@@ -2,14 +2,14 @@ package com.habitica.test;
 
 import com.habitica.base.TestBase;
 import com.habitica.config.Settings;
-import com.habitica.data.UserData;
+import com.habitica.data.user.UserData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HabiticaLoginTest extends TestBase {
+public class HabiticaSuccessLoginTest extends TestBase {
 
     private static final UserData userData = new UserData(
             Settings.getLogin(),
@@ -17,7 +17,7 @@ public class HabiticaLoginTest extends TestBase {
     );
 
     @Test
-    public void loginTestCase() {
+    public void successLoginTestCase() {
         applicationManager.getLoginHelper().login(userData, true);
 
         // Wait for user avatar present

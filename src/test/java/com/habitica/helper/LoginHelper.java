@@ -3,7 +3,7 @@ package com.habitica.helper;
 import com.habitica.ApplicationManager;
 import com.habitica.base.HelperBase;
 import com.habitica.config.Settings;
-import com.habitica.data.UserData;
+import com.habitica.data.user.UserData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,10 +26,7 @@ public class LoginHelper extends HelperBase {
             if (shouldLogoutFirst) {
                 if (isAuthorized(Settings.getPath())) {
                     applicationManager.getLogoutHelper().logout();
-                } else {
-                    return;
                 }
-
             }
 
             applicationManager.getNavigationHelper().openHomePage();
@@ -41,18 +38,12 @@ public class LoginHelper extends HelperBase {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id("usernameInput")));
             webDriver.findElement(By.id("usernameInput")).click();
             webDriver.findElement(By.id("usernameInput")).clear();
-            webDriver.findElement(By.id("usernameInput")).sendKeys(userData.username());
+            webDriver.findElement(By.id("usernameInput")).sendKeys(userData.login());
             webDriver.findElement(By.id("passwordInput")).click();
             webDriver.findElement(By.id("passwordInput")).clear();
             webDriver.findElement(By.id("passwordInput")).sendKeys(userData.password());
             webDriver.findElement(By.xpath("//button[@type='submit']")).click();
         } catch (Exception ignored) {}
-    }
-
-    public boolean isAuthorized() {
-        boolean isAuth = applicationManager.getLoginHelper().getCurrentUrl().equals("https://habitica.com/");
-        System.out.println(isAuth);
-        return isAuth;
     }
 
     public boolean isAuthorized(String path) {

@@ -1,7 +1,7 @@
 package com.habitica.test;
 
 import com.habitica.base.AuthBase;
-import com.habitica.data.TaskData;
+import com.habitica.data.task.TaskData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

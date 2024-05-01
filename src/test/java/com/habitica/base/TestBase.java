@@ -9,8 +9,8 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() throws InterruptedException {
-        //
         applicationManager = ApplicationManager.getInstance();
         applicationManager.getNavigationHelper().openProfilePage();
+        applicationManager.getHelperBase().sleep();
     }
 }

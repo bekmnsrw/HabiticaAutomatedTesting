@@ -1,7 +1,7 @@
 package com.habitica.test;
 
 import com.habitica.base.AuthBase;
-import com.habitica.data.TaskData;
+import com.habitica.data.task.TaskData;
 import com.habitica.generator.TaskGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class HabiticaTaskCreationTest extends AuthBase {
 
-    public static List<TaskData> taskCreationTestCaseData() {
+    public static List<TaskData> createTestData() {
         try {
             List<TaskData> tasks = new ArrayList<>();
             JAXBContext context = JAXBContext.newInstance(TaskData.class);
@@ -30,7 +30,7 @@ public class HabiticaTaskCreationTest extends AuthBase {
     }
 
     @ParameterizedTest
-    @MethodSource("com.habitica.test.HabiticaTaskCreationTest#taskCreationTestCaseData")
+    @MethodSource("com.habitica.test.HabiticaTaskCreationTest#createTestData")
     public void taskCreationTestCase(TaskData taskData) throws Exception {
         // Create new task
         applicationManager.getTaskHelper().createTask(taskData);

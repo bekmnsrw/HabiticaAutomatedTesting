@@ -2,7 +2,7 @@ package com.habitica.helper;
 
 import com.habitica.ApplicationManager;
 import com.habitica.base.HelperBase;
-import com.habitica.data.TaskData;
+import com.habitica.data.task.TaskData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
